@@ -1,6 +1,8 @@
 package com.qa.testcases;
 
 import com.qa.base.TestBase;
+import com.qa.pages.ConnectionInfoPage;
+import com.qa.pages.HomePage;
 import com.qa.pages.IndexPage;
 import com.qa.pages.LoginPage;
 import org.testng.Assert;
@@ -12,6 +14,9 @@ public class IndexPageTest extends TestBase {
     IndexPage indexPage;
     //just for landing Page
     LoginPage loginPage;
+    HomePage homePage;
+    ConnectionInfoPage connectionInfoPage;
+
 
     public IndexPageTest(){
         super();
@@ -33,9 +38,21 @@ public class IndexPageTest extends TestBase {
         loginPage=indexPage.clickLoginButton();
     }
 
+    @Test(priority = 3)
+    public void searchConnectionTest(){
+        connectionInfoPage=indexPage.searchConnection(prop.getProperty("fromLocation"),prop.getProperty("toLocation"));
+    }
+
+    @Test(priority = 4)
+    public void searchConnectionWithTimeTest(){
+        connectionInfoPage=indexPage.searchConnection(prop.getProperty("fromLocation"),prop.getProperty("toLocation"),
+                prop.getProperty("fromDate"),prop.getProperty("fromTime"),prop.getProperty("classRadio"));
+    }
+
+
 
     @AfterMethod
     public void tearDown(){
-        driver.quit();
+        //driver.quit();
     }
 }
